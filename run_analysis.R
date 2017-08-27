@@ -34,6 +34,9 @@ train_all <- cbind(train_id, train_X, train_y)
 
 full_set <- rbind(test_all, train_all)
 
+full_set$y <- factor(full_set$y)
+full_set$id <- factor(full_set$id)
+
 grouped <- group_by(full_set, id, y)
 means <- summarise_all(grouped, mean)
 
