@@ -37,4 +37,6 @@ full_set <- rbind(test_all, train_all)
 grouped <- group_by(full_set, id, y)
 means <- summarise_all(grouped, mean)
 
+## write.table(means, file = "res.txt", row.names = FALSE)
+
 setwd("..")
