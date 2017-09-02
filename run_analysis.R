@@ -11,7 +11,7 @@ names(test_id) <- "id"
 test_X <- read.table("X_test.txt", colClasses = "numeric")
 names(test_X) <- features
 test_y <- read.table("y_test.txt", colClasses = "numeric")
-names(test_y) <- "y"
+names(test_y) <- "activity"
 
 setwd("../train")
 
@@ -20,13 +20,13 @@ names(train_id) <- "id"
 train_X <- read.table("X_train.txt", colClasses = "numeric")
 names(train_X) <- features
 train_y <- read.table("y_train.txt", colClasses = "numeric")
-names(train_y) <- "y"
+names(train_y) <- "activity"
 
-test_X <- test_X[, grep("std|mean", features)]
-train_X <- train_X[, grep("std|mean", features)]
+test_X <- test_X[, grep("std\\(\\)|mean\\(\\)", features)]
+train_X <- train_X[, grep("std\\(\\)|mean\\(\\)", features)]
 
-test_y$y <- activities[test_y$y]
-train_y$y <- activities[train_y$y]
+test_y$activity <- activities[test_y$activity]
+train_y$activity <- activities[train_y$activity]
 
 
 test_all <- cbind(test_id, test_X, test_y)
@@ -34,10 +34,10 @@ train_all <- cbind(train_id, train_X, train_y)
 
 full_set <- rbind(test_all, train_all)
 
-full_set$y <- factor(full_set$y)
+full_set$activity <- factor(full_set$activity)
 full_set$id <- factor(full_set$id)
 
-grouped <- group_by(full_set, id, y)
+grouped <- group_by(full_set, id, activity)
 means <- summarise_all(grouped, mean)
 
 ## write.table(means, file = "res.txt", row.names = FALSE)
