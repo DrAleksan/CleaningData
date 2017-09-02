@@ -1,5 +1,6 @@
 # How script works
 ## Extracting data 
+* Download data if needed
 * Read all files and save them
 * Extract only columns with mean and std value
 
